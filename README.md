@@ -11,14 +11,6 @@ npm start
 open http://localhost:8000/
 ```
 
-## Vue dev tool( chrome extension )
-* https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd
-
-## VSCode 推薦套件
-* [HTML Snippets](https://marketplace.visualstudio.com/items?itemName=abusaidm.html-snippets)
-* [vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
-* [VueHelper](https://marketplace.visualstudio.com/items?itemName=oysun.vuehelper)
-
 # Create a todo list
 ## 需要做到
 * 新增 todo item
@@ -58,3 +50,11 @@ open http://localhost:8000/
 * computed
 * template
 * props
+
+## Vue dev tool( chrome extension )
+* https://chrome.google.com/webstore/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd
+
+## VSCode 推薦套件
+* [HTML Snippets](https://marketplace.visualstudio.com/items?itemName=abusaidm.html-snippets)
+* [vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur)
+* [VueHelper](https://marketplace.visualstudio.com/items?itemName=oysun.vuehelper)
