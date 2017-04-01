@@ -1,0 +1,17 @@
+{
+  "name": "exma-0401-homework",
+  "version": "1.0.0",
+  "description": "",
+  "main": "devServer.js",
+  "dependencies": {},
+  "devDependencies": {
+    "express": "^4.14.1"
+  },
+  "scripts": {
+    "start": "node devServer.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
