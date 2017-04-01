@@ -9,6 +9,7 @@ npm start
 
 ```
 open http://localhost:8000/
+edit index.html
 ```
 
 # Create a todo list
