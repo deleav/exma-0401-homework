@@ -1,0 +1,19 @@
+.title {
+  font-size: 60px;
+}
+.completed {
+  text-decoration:line-through;
+}
+.itemText {
+  font-size: 30px;
+}
+.listItem {
+  text-align: left;
+}
+.list {
+  margin: auto;
+  width: 30%;
+}
+.updateMode {
+  margin-top: 100px;
+}
