@@ -1,20 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title></title>
+    <title>Vue TodoList</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" href="style.css" rel="stylesheet"/>
+    <!-- Add this to <head> -->
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap@next/dist/css/bootstrap.min.css"/>
+    <link type="text/css" rel="stylesheet" href="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"/>
+
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <!-- Add this after vue.js -->
+    <script src="//unpkg.com/tether@latest/dist/js/tether.min.js"></script>
+    <script src="//unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
   </head>
   <body>
     <!--
       上課 ppt: https://slides.com/deleav/vue-js-junior
       引入 Vue.js 的 CDN 就可以開始寫囉
     -->
-    你可以開始寫拉～
+    <div id="app-5" class="text-center">
+      <h1 class="title">Vue TodoList</h1>
+      <input type="text" v-model="newTodo"/>
+      <button type="button" name="button" v-on:click="addTodo">ADD</button>
+      <b-form-select v-model="selected" :options="options"></b-form-select>
+      <ul v-for="(todo, index) in todos" class="list">
+        <div v-if='selected == "All"'>
+          <li class="listItem">
+            <span v-on:click="toggleTodo(todo.key)" v-bind:class="{'completed':todo.completed}" class="itemText">{{index + 1}} - {{todo.text}}</span><span>{{todo.date}}</span>
+            <button class="btn btn-xs btn-primary" @click="updateTodo( todo.key )">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            </button>
+            <button class="btn btn-xs btn-danger" @click="deleteTodo( todo.key )">
+              <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+            </button>
+          </li>
+        </div>
+        <div v-if='selected == "Active"'>
+          <div v-if="todo.completed == false">
+            <li class="listItem">
+              <span v-on:click="toggleTodo(todo.key)" v-bind:class="{'completed':todo.completed}" class="itemText">{{index + 1}} - {{todo.text}}</span><span>{{todo.date}}</span>
+              <button class="btn btn-xs btn-primary" @click="updateTodo( todo.key )">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+              </button>
+              <button class="btn btn-xs btn-danger" @click="deleteTodo( todo.key )">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+            </li>
+          </div>
+        </div>
+        <div v-if='selected == "Completed"'>
+          <div v-if="todo.completed == true">
+            <li class="listItem">
+              <span v-on:click="toggleTodo(todo.key)" v-bind:class="{'completed':todo.completed}" class="itemText">{{index + 1}} - {{todo.text}}</span><span>{{todo.date}}</span>
+              <button class="btn btn-xs btn-primary" @click="updateTodo( todo.key )">
+                <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+              </button>
+              <button class="btn btn-xs btn-danger" @click="deleteTodo( todo.key )">
+                <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+              </button>
+            </li>
+          </div>
+        </div>
+      </ul>
+      <div v-if="updateMode" class="updateMode">
+        <h1>Update</h1>
+        <input type="text" name="" v-on:keyup.enter="update( updateText[0].key )" v-model="updateText[0].text">
+      </div>
+    </div>
   </body>
   <script>
     /*
       Vue 的所有相關東西都寫在這裡
     */
+    var app5 = new Vue({
+      el: '#app-5',
+      data: {
+        newTodo: '',
+        todos: [],
+        updateMode: false,
+        updateText: [],
+        selected: 'All',
+        options: [
+        {
+          text: 'All',
+          value: 'All'
+        }, {
+          text: 'Active',
+          value: 'Active'
+        }, {
+          text: 'Completed',
+          value: 'Completed'
+        }]
+      },
+      methods: {
+        addTodo: function () {
+          // console.log("addTodo");
+          var text = this.newTodo.trim();
+          var key = 0;
+          for (var o in this.todos) {
+              key++;
+          }
+          var d = new Date();
+          this.todos.push({
+            key: key,
+            text: text,
+            completed: false,
+            date: d,
+          });
+          this.newTodo = '';
+        },
+        updateTodo: function(i) {
+          // console.log("updateTodo");
+          // console.log(i);
+          this.updateMode = true;
+          for (var o in this.todos) {
+            if(this.todos[o].key == i){
+              this.updateText.push({
+                key: i,
+                text: this.todos[o].text,
+              })
+              break;
+            }
+          }
+        },
+        update: function(i) {
+          // console.log("update");
+          this.updateMode = false;
+          for (var o in this.todos) {
+            if(this.todos[o].key == i){
+              this.todos[o].text = this.updateText[0].text;
+              break;
+            }
+          }
+        },
+        deleteTodo: function(i) {
+          // console.log("deleteTodo");
+          // console.log(i);
+          var temp = 0;
+          for (var o in this.todos) {
+            if(this.todos[o].key == i){
+              this.todos.splice(temp, 1);
+              break;
+            }
+            temp++;
+          }
+        },
+        toggleTodo: function(i) {
+          // console.log("toggleTodo");
+          // console.log(i);
+          this.todos[i].completed = !this.todos[i].completed;
+          // console.log(this.todos);
+        },
+        setFilter: function(i) {
+          // console.log("setFilter");
+          switch (i) {
+            case 0:
+              this.filter = 'All';
+              // console.log('set to All');
+              break;
+            case 1:
+              this.filter = 'Active';
+              // console.log('set to Active');
+              break;
+            case 2:
+              this.filter = 'Completed';
+              // console.log('set to Completed');
+              break;
+            default:
+              this.filter = 'All';
+              // console.log('set to All');
+              break;
+          }
+        }
+      }
+    })
+
   </script>
 </html>
