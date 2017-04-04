@@ -101,7 +101,7 @@
       },
       methods: {
         addTodo: function () {
-          console.log("addTodo");
+          // console.log("addTodo");
           var text = this.newTodo.trim();
           var key = 0;
           for (var o in this.todos) {
@@ -117,12 +117,11 @@
           this.newTodo = '';
         },
         updateTodo: function(i) {
-          console.log("updateTodo");
-          console.log(i);
+          // console.log("updateTodo");
+          // console.log(i);
           this.updateMode = true;
           for (var o in this.todos) {
             if(this.todos[o].key == i){
-              console.log("in");
               this.updateText.push({
                 key: i,
                 text: this.todos[o].text,
@@ -132,7 +131,7 @@
           }
         },
         update: function(i) {
-          console.log("update");
+          // console.log("update");
           this.updateMode = false;
           for (var o in this.todos) {
             if(this.todos[o].key == i){
@@ -142,8 +141,8 @@
           }
         },
         deleteTodo: function(i) {
-          console.log("deleteTodo");
-          console.log(i);
+          // console.log("deleteTodo");
+          // console.log(i);
           var temp = 0;
           for (var o in this.todos) {
             if(this.todos[o].key == i){
@@ -154,29 +153,29 @@
           }
         },
         toggleTodo: function(i) {
-          console.log("toggleTodo");
-          console.log(i);
+          // console.log("toggleTodo");
+          // console.log(i);
           this.todos[i].completed = !this.todos[i].completed;
-          console.log(this.todos);
+          // console.log(this.todos);
         },
         setFilter: function(i) {
-          console.log("setFilter");
+          // console.log("setFilter");
           switch (i) {
             case 0:
               this.filter = 'All';
-              console.log('set to All');
+              // console.log('set to All');
               break;
             case 1:
               this.filter = 'Active';
-              console.log('set to Active');
+              // console.log('set to Active');
               break;
             case 2:
               this.filter = 'Completed';
-              console.log('set to Completed');
+              // console.log('set to Completed');
               break;
             default:
               this.filter = 'All';
-              console.log('set to All');
+              // console.log('set to All');
               break;
           }
         }
