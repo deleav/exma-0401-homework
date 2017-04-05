@@ -1,20 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title></title>
+    <title>Hello Vue</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
   </head>
   <body>
-    <!--
-      上課 ppt: https://slides.com/deleav/vue-js-junior
-      引入 Vue.js 的 CDN 就可以開始寫囉
-    -->
-    你可以開始寫拉～
+    <!-- 上課 ppt: https://slides.com/deleav/vue-js-junior -->
+    <div id="app">
+      <p> Welcome to vue's practive v1.0</p>
+      <p> Index : {{ changingIndex }} </p>
+      <p> Data :  {{ changingData }} </p>
+      
+      <p>修改 : 第<input @input="changingIndex = $event.target.value" type="number" style="width:50px">
+      個todoItem的值為<input @input="changingData = $event.target.value" style="width:150px">
+      <input type="button" @click="reviseTodoItem" value="revise一個"></p>
+
+      <p>新增 : <input @input="newData = $event.target.value" type="text" style="width: 150px"></p>
+      <button @click="newTodoItem" value="new一個"></button>
+
+      <p>刪除 : <input @input="delIndex = $event.target.value" type="number" style="width:50px">
+      <button @click="delTodoItem" value"de一個"></button></p>
+      <p> ErrorMessage : {{ errorMsg }} </p>
+      
+      <ol>
+        <todo-item v-for="(item, index) in todoList" :todo="item" :key="index">
+      </ol>
+    </div>
+  
   </body>
   <script>
-    /*
-      Vue 的所有相關東西都寫在這裡
-    */
+    /* Vue 的所有相關東西都寫在這裡 */
+    Vue.component('todo-item',{
+      props: ['todo'],
+      template: '<li><input type="checkbox" checked> <label> {{ todo.text }}</label></li>'
+    })
+    new Vue({
+      el: '#app',
+      data: {
+        changingIndex: '0',
+        changingData: '',
+        errorMsg: '',
+        newData: '',
+        dleIndex: '',
+        todoList: [
+          { text : 'zzz' },
+          { text : 'homework' },
+          { text : 'monsterStrike' },
+          { text : 'test1' },
+          { text : 'test2' }
+        ]
+      },
+      methods: {
+        reviseTodoItem: function(){
+          this.errorMsg = this.todoList.length;
+          if(this.changingIndex > this.todoList.length || this.changingIndex <= 0){
+            this.errorMsg = 'OutOfIndex!';
+          }
+          else{
+            this.errorMsg = '';
+            this.todoList[this.changingIndex-1].text = this.changingData;
+          }
+        },
+        newTodoItem: function(){
+          this.todoList.push({ text : this.newData });
+        },
+        delTodoItem: function(){
+          this.todoList.pop(index-1);
+        }
+      }
+    });
   </script>
 </html>
