@@ -28,13 +28,10 @@
       <p> Todo List <input type="button" @click="wellDone" value="well-done一發">
       <input type="button" @click="nothingFinished" value="甚麼都沒做"></p>
 
-
-      
       <ol>
         <todo-item v-for="(item, index) in todoList" :todo="item" :key="index" :ind="index">
       </ol>
     </div>
-  
   </body>
   <script>
     /* Vue 的所有相關東西都寫在這裡 */
