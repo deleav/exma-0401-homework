@@ -4,12 +4,26 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.js"></script>
   </head>
   <body>
     <div id="app">
-      {{msg}}
+      <h2>Yo~總共有{{todos.length}}個todo, 共{{filterForChecked()}}個已完成, 共{{todos.length-filterForChecked()}}個未完成</h2>
+      <hr>
+      <h2>請輸入Todo yo</h2>
+      <input type="text" v-model="todoText" v-on:keyup.enter="addTodo">
+      <hr>
+      <h2>Todos</h2>
+      <ul v-if="todos.length"> {{todos.length}}
+        <li v-for="(todo, index) in todos">
+          <!--<span style="color:brown;">{{todo.id+1}}</span>-->
+          <h3 style="display: inline-block">{{todo.title}}</h3>
+          <input id="check" style="width: 20px; height: 20px" type="checkbox" v-model="todo.checked"> 
+          <label for="check"> {{todo.checked}} </label>
+          <button v-on:click="remove(index)">x</button>
+        </li>
+      </ul>
+      <h3 v-else> no todos yo </h3>
     </div>
     <script src="js/main.js"></script>
 
