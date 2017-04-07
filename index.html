@@ -79,14 +79,14 @@
             this.todoList.pop();
           else{
             if(this.delIndex <= 0 || this.delIndex > this.todoList.length)
-          	  this.errorMsg = 'OutOfIndex!';
+              this.errorMsg = 'OutOfIndex!';
             else{
-          	  this.errorMsg = '';
-          	  let temp = this.todoList.slice(0, this.delIndex);
-          	  let temp2 = this.todoList.slice(this.delIndex, this.todoList.length);
-          	  temp.pop();
-          	  this.todoList = temp.concat(temp2);      
-          	}    
+              this.errorMsg = '';
+              let temp = this.todoList.slice(0, this.delIndex);
+              let temp2 = this.todoList.slice(this.delIndex, this.todoList.length);
+              temp.pop();
+              this.todoList = temp.concat(temp2);      
+            }    
           }
         },
         wellDone: function(){
