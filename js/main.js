@@ -1,3 +1,32 @@
+const TodoComponent = Vue.extend({
+    data: function(){
+        return {
+            editMode: false
+        } ;
+    },
+    props: ['todo', 'remove' , 'index'],
+    template: `
+                <span style="display: inline-block">
+                    <span v-if="editMode">
+                        <input type="text" v-model="todo.title" v-on:keyup.enter="toggleEditMode">
+                    </span>
+                    <span v-if="!editMode">
+                            <h3 v-on:click="toggleEditMode" style="display: inline-block">{{todo.title}}</h3>
+                            <input id="check" style="width: 20px; height: 20px" type="checkbox" v-model="todo.checked"> 
+                            <label for="check"> {{todo.checked}} </label>
+                            <button v-on:click="remove(index)">x</button>
+                    </span>
+                </span>
+                `,
+    methods: {
+        toggleEditMode: function(){
+            this.editMode =  !this.editMode ;
+        }
+    }
+});
+
+Vue.component('todo-component', TodoComponent);
+
 const vm = new Vue({
    el: '#app', 
    data: {
@@ -20,11 +49,6 @@ const vm = new Vue({
                 this.todos.push( { title: todoText, checked: false } );    
                 this.todoText='';
             }
-            // todos.push({ 
-            //     id: todos.length-1,
-            //     title: title, 
-            //     checked: false
-            // });
        },
        remove: function(id){
            this.todos.splice(id, 1);

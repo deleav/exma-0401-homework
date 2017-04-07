@@ -7,6 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.js"></script>
   </head>
   <body>
+    <!--app div start-->
     <div id="app">
       <h2>Yo~總共有{{todos.length}}個todo, 共{{filterForChecked()}}個已完成, 共{{todos.length-filterForChecked()}}個未完成</h2>
       <hr>
@@ -17,14 +18,21 @@
       <ul v-if="todos.length"> {{todos.length}}
         <li v-for="(todo, index) in todos">
           <!--<span style="color:brown;">{{todo.id+1}}</span>-->
-          <h3 style="display: inline-block">{{todo.title}}</h3>
+          <!--<h3 style="display: inline-block">{{todo.title}}</h3>
           <input id="check" style="width: 20px; height: 20px" type="checkbox" v-model="todo.checked"> 
           <label for="check"> {{todo.checked}} </label>
-          <button v-on:click="remove(index)">x</button>
+          <button v-on:click="remove(index)">x</button>-->
+          <!--<br/>-->
+          <todo-component 
+            v-bind:todo="todo" 
+            v-bind:remove="remove" 
+            v-bind:index="index">
+          </todo-component>
         </li>
       </ul>
       <h3 v-else> no todos yo </h3>
-    </div>
+    </div> 
+    <!--app div end-->
     <script src="js/main.js"></script>
 
   </body>
