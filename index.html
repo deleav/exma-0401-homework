@@ -81,7 +81,7 @@
           	if(this.delIndex <= 0 || this.delIndex > this.todoList.length)
           	  this.errorMsg = 'OutOfIndex!';
           	else{
-          		this.errorMsg = '';
+          	  this.errorMsg = '';
           	  let temp = this.todoList.slice(0, this.delIndex);
           	  let temp2 = this.todoList.slice(this.delIndex, this.todoList.length);
           	  temp.pop();
