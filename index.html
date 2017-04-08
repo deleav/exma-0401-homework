@@ -14,6 +14,10 @@
       <h2>請輸入Todo yo</h2>
       <input type="text" v-model="todoText" v-on:keyup.enter="addTodo">
       <hr>
+      <h2>bonus yo</h2>
+        <button v-on:click="toggle(true)">完成全部</button>
+        <button v-on:click="toggle(false)">取消全部</button>
+      <hr>
       <h2>Todos</h2>
       <ul v-if="todos.length">
         <li v-for="(todo, index) in todos">
@@ -31,10 +35,8 @@
         </li>
       </ul>
       <h3 v-else> no todos yo </h3>
-    </div> 
-    <!--app div end-->
+    </div><!--app div end-->
     <script src="js/main.js"></script>
-
   </body>
   
 </html>

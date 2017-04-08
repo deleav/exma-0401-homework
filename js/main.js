@@ -57,6 +57,13 @@ const vm = new Vue({
            return this.todos.filter(function(todo){
                 return todo.checked;
            }).length ;
+       },
+       toggle: function(isComplted){
+           this.todos.forEach(function(todo){
+               if(todo.checked!==isComplted){
+                    todo.checked=!todo.checked;
+               }
+           });
        }
    }
 });
