@@ -81,10 +81,8 @@
       methods:{
         addtodo:function(){
           var text=this.addtext;
-          var key=0;
-          for(var i in this.todo){
-            key++;
-          }
+          var d=new Date();
+          var key=parseInt(d.getTime());
           this.todo.push({
             key:key,
             completed:false,
@@ -93,10 +91,17 @@
           this.addtext="";
         },
         changetodo:function(key){
-          this.todo[key].completed=!this.todo[key].completed;
+          for(var i in this.todo){
+            if(this.todo[i].key==key)
+            this.todo[i].completed=!this.todo[i].completed;
+          }  
         },
         deltodo:function(key){
-          this.todo.splice(key,1);
+          for(var i in this.todo){
+            if(this.todo[i].key==key)
+             this.todo.splice(i,1);
+          }  
+         
         },
         selectall:function(){
           this.filter="all"
