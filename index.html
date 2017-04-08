@@ -6,15 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
-    <!--
-      上課 ppt: https://slides.com/deleav/vue-js-junior
-      引入 Vue.js 的 CDN 就可以開始寫囉
-    -->
-    你可以開始寫拉～
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <div id="app">
+      <input v-model="todoitem">
+      <div v-for="(todo, index) in todos">
+        <button v-on:click="remove(index)">Remove</button>
+        {{ todo.text }}
+      </div>
+      <button v-on:click="add">Add</button>
+      
+    </div>
   </body>
   <script>
-    /*
-      Vue 的所有相關東西都寫在這裡
-    */
+    var list = new Vue({
+      el:'#app',
+      data:{
+        todoitem:'',
+        todos:[
+          {text:'1'},
+          {text:'2'},
+          {text:'3'}
+        ]
+      },
+      methods:{
+        add: function (){
+          this.todos.push({text:this.todoitem})
+          this.todoitem=''
+          //console.log(this.todos);
+        },
+        remove: function (index){
+          this.todos.splice(index,1)
+        }
+      }
+    })
   </script>
 </html>
