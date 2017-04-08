@@ -15,7 +15,7 @@
       <input type="text" v-model="todoText" v-on:keyup.enter="addTodo">
       <hr>
       <h2>Todos</h2>
-      <ul v-if="todos.length"> {{todos.length}}
+      <ul v-if="todos.length">
         <li v-for="(todo, index) in todos">
           <!--<span style="color:brown;">{{todo.id+1}}</span>-->
           <!--<h3 style="display: inline-block">{{todo.title}}</h3>

@@ -8,10 +8,11 @@ const TodoComponent = Vue.extend({
     template: `
                 <span style="display: inline-block">
                     <span v-if="editMode">
-                        <input type="text" v-model="todo.title" v-on:keyup.enter="toggleEditMode">
+                        <textarea autofocus v-on:blur="toggleEditMode" v-model="todo.title"></textarea>
+                        <button v-on:click="toggleEditMode"> ok </button>
                     </span>
                     <span v-if="!editMode">
-                            <h3 v-on:click="toggleEditMode" style="display: inline-block">{{todo.title}}</h3>
+                            <textarea readonly v-on:click="toggleEditMode" v-model="todo.title"></textarea>
                             <input id="check" style="width: 20px; height: 20px" type="checkbox" v-model="todo.checked"> 
                             <label for="check"> {{todo.checked}} </label>
                             <button v-on:click="remove(index)">x</button>
@@ -20,6 +21,7 @@ const TodoComponent = Vue.extend({
                 `,
     methods: {
         toggleEditMode: function(){
+            console.log(this.todo.title);    
             this.editMode =  !this.editMode ;
         }
     }
@@ -30,8 +32,6 @@ Vue.component('todo-component', TodoComponent);
 const vm = new Vue({
    el: '#app', 
    data: {
-       msg: 'yoyoyo' ,
-       testVModelWithInput: 'yo mate' ,
        todoText:'',
        todos: [
            { title: 'Todo 1', checked: true },
