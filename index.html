@@ -4,17 +4,39 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.2.6/vue.js"></script>
   </head>
   <body>
-    <!--
-      上課 ppt: https://slides.com/deleav/vue-js-junior
-      引入 Vue.js 的 CDN 就可以開始寫囉
-    -->
-    你可以開始寫拉～
+    <!--app div start-->
+    <div id="app">
+      <h2>Yo~總共有{{todos.length}}個todo, 共{{filterForChecked()}}個已完成, 共{{todos.length-filterForChecked()}}個未完成</h2>
+      <hr>
+      <h2>請輸入Todo yo</h2>
+      <input type="text" v-model="todoText" v-on:keyup.enter="addTodo">
+      <hr>
+      <h2>bonus yo</h2>
+        <button v-on:click="toggle(true)">完成全部</button>
+        <button v-on:click="toggle(false)">取消全部</button>
+      <hr>
+      <h2>Todos</h2>
+      <ul v-if="todos.length">
+        <li v-for="(todo, index) in todos">
+          <!--<span style="color:brown;">{{todo.id+1}}</span>-->
+          <!--<h3 style="display: inline-block">{{todo.title}}</h3>
+          <input id="check" style="width: 20px; height: 20px" type="checkbox" v-model="todo.checked"> 
+          <label for="check"> {{todo.checked}} </label>
+          <button v-on:click="remove(index)">x</button>-->
+          <!--<br/>-->
+          <todo-component 
+            v-bind:todo="todo" 
+            v-bind:remove="remove" 
+            v-bind:index="index">
+          </todo-component>
+        </li>
+      </ul>
+      <h3 v-else> no todos yo </h3>
+    </div><!--app div end-->
+    <script src="js/main.js"></script>
   </body>
-  <script>
-    /*
-      Vue 的所有相關東西都寫在這裡
-    */
-  </script>
+  
 </html>
