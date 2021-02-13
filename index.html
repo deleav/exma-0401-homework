@@ -1,20 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title></title>
+    <title>Hello Vue</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
   </head>
   <body>
-    <!--
-      上課 ppt: https://slides.com/deleav/vue-js-junior
-      引入 Vue.js 的 CDN 就可以開始寫囉
-    -->
-    你可以開始寫拉～
+    <!-- 上課 ppt: https://slides.com/deleav/vue-js-junior -->
+    <div id="app">
+      <p> Welcome to vue's practive v1.0</p><br>
+      
+      <p>修改 : 第<input type="number" @input="changingIndex = $event.target.value" style="width:50px">
+      個todoItem的值為<input @input="changingData = $event.target.value" style="width:150px">
+      <input type="button" @click="reviseTodoItem" value="revise一個"></p>
+
+      <p>新增 : <input @input="newData = $event.target.value" type="text" style="width: 150px">
+      <input type="button" @click="newTodoItem" value="new一個"></p>
+
+      <p>刪除 : <input type="button" @click="delTodoItem(0)" value="de第一個">
+      <input type="button" @click="delTodoItem(-1)" value="de最後一個">
+      <input type="number" @input="delIndex = $event.target.value" style="width:50px">
+      <input type="button" @click="delTodoItem(1)" value="de這個"></p>
+
+      <p> ErrorMessage : {{ errorMsg }} </p>
+
+      <p> Todo List <input type="button" @click="wellDone" value="well-done一發">
+      <input type="button" @click="nothingFinished" value="甚麼都沒做"></p>
+
+      <ol>
+        <todo-item v-for="(item, index) in todoList" :todo="item" :key="index" :ind="index">
+      </ol>
+    </div>
   </body>
   <script>
-    /*
-      Vue 的所有相關東西都寫在這裡
-    */
+    /* Vue 的所有相關東西都寫在這裡 */
+    Vue.component('todo-item',{
+      props: ['todo','ind'],
+      template: '<li><input type="checkbox" :id="ind" v-model="todo.checked" > <label> {{ todo.text }}</label></li>'
+    })
+    new Vue({
+      el: '#app',
+      data: {
+        changingIndex: '0',
+        changingData: '',
+        errorMsg: '',
+        newData: '',
+        delIndex: '',
+        todoList: [
+          { text : 'zzz', checked : 'checked' },
+          { text : 'homework', checked : '' },
+          { text : 'monsterStrike', checked : '' },
+          { text : 'test1', checked : '' },
+          { text : 'test2', checked : '' }
+        ]
+      },
+      methods: {
+        reviseTodoItem: function(){
+          this.errorMsg = this.todoList.length;
+          if(this.changingIndex > this.todoList.length || this.changingIndex <= 0){
+            this.errorMsg = 'OutOfIndex!';
+          }
+          else{
+            this.errorMsg = '';
+            this.todoList[this.changingIndex-1].text = this.changingData;
+          }
+        },
+        newTodoItem: function(){
+          this.todoList.push({ text : this.newData });
+        },
+        delTodoItem: function(a){
+          if(a == 0)
+            this.todoList.shift();
+          else if(a == -1)
+            this.todoList.pop();
+          else{
+            if(this.delIndex <= 0 || this.delIndex > this.todoList.length)
+              this.errorMsg = 'OutOfIndex!';
+            else{
+              this.errorMsg = '';
+              let temp = this.todoList.slice(0, this.delIndex);
+              let temp2 = this.todoList.slice(this.delIndex, this.todoList.length);
+              temp.pop();
+              this.todoList = temp.concat(temp2);      
+            }    
+          }
+        },
+        wellDone: function(){
+          for(let i=0; i<this.todoList.length; i++){
+            this.todoList[i].checked = 'checked';
+          }
+        },
+        nothingFinished: function(){
+          for(let i=0; i<this.todoList.length; i++){
+            this.todoList[i].checked = '';
+          }
+        }
+      }
+    });
   </script>
 </html>
